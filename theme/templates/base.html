@@ -1,0 +1,52 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en" class="{% if request.session.is_dark_mode %} dark {% endif %}">
+	<head>
+    <title>Yousuf| {% block title %}
+	  
+	{% endblock title %}</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<!-- font awesome-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<!-- we want to excutes this block after page parsing finish for this defer use. this use for BASE_DIR/ 'static'-->
+		<script src="{% static 'main.js' %}" defer></script>
+		
+		<!-- this block inherit the main.html -->
+		{% block scripts %}
+		    
+		{% endblock scripts %}
+
+
+		{% tailwind_css %}
+	</head>
+
+	<body class="bg-gray-50 dark:bg-slate-800 dark:text-slate-400">
+		{% include "layout/navbar.html" %}
+	<div class="grid grid-cols-12">
+		<div class="col-span-1">
+			{% include "layout/sidebar.html" %}
+
+		</div>
+		<div class="col-span-11">
+			
+			<div class="pt-20 px-6  ">
+				<a href="{% url 'change' %}" class="fixed top-[150px] right-0 p-3 rounded-l-lg 
+				bg-slate-200 hover:bg-slate-300 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-slate-900 drop-shadow-md
+				transition-all "> 
+					<i class="fa-solid {% if not request.session.is_dark_mode %} fa-moon {% else %} fa-sun {% endif %} fa-2xl"></i>
+			</a>
+				<br>
+
+
+				{% block content %}
+				
+				{% endblock content %} 
+			</div>
+		</div>
+	</div>
+
+	</body>
+</html>
